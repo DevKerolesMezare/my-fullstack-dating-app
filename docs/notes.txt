@@ -1,0 +1,29 @@
+
+dotnet new sln
+
+dotnet new webapi  -controllers -n API
+
+dotnet sln add API
+
+- -------------------------------------
+NUGET      
+
+--------------------
+Data
+AppDbContext  : DbContext
+
+dotnet tool list -g
+
+
+dotnet tool install -g dotnet-ef       //version 
+
+
+
+
+dotnet ef migrations add InitialCreate -o Data/Migrations
+
+
+-----------------------------------------------
+dotnet ef database update
+
+
