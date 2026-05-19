@@ -15,6 +15,9 @@ AppDbContext  : DbContext
 dotnet tool list -g
 
 
+
+MembersController
+
 dotnet tool install -g dotnet-ef       //version 
 
 
@@ -22,8 +25,24 @@ dotnet tool install -g dotnet-ef       //version
 
 dotnet ef migrations add InitialCreate -o Data/Migrations
 
-
 -----------------------------------------------
 dotnet ef database update
 
+-----------------------------
 
+Angular Language Service 
+
+ESLint 
+
+-------------------------------
+brackets \ 
+auto closing \ always
+
+
+linked \ linked Editing 
+--------------------------------
+
+daisyUI
+Tailwind
+
+.postcssrc.json

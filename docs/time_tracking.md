@@ -92,43 +92,49 @@ start:                   4:10 PM 5/18/2026
 
 
 
-rest :
+rest :                   5:18 PM 5/18/2026 (End the section 2)
 
-start:
+start:                   5:46 PM 5/18/2026(start section 3)
 
+difference:          28 min + 12 wasted time
 
-
-description:
-
-
+total rest :           40 min
 
 
 
-end :
+description:             15  |  21   \[Net Time = 54 min]
+
+
+
+
+
+end :         6:31 PM 5/18/2026
+
+
+
+Total Time Study\[1h 41m]
 
 \-------------------------------------------------------------------
 
 
 
-
+day
 
 \-------------------------------------------------------------------
 
 Task :
 
-
-
-start:
-
-
-
-rest :
-
-start:
+start:                 5:56 PM 5/19/2026
 
 
 
-description:
+rest :                 6:40 PM 5/19/2026                   7:32 PM 5/19/2026
+
+start:                 6:46 PM 5/19/2026                   7:36 PM 5/19/2026
+
+
+
+description: 22 |  
 
 
 
