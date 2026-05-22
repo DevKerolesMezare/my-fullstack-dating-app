@@ -41,8 +41,39 @@ auto closing \ always
 
 linked \ linked Editing 
 --------------------------------
-
 daisyUI
 Tailwind
 
 .postcssrc.json
+------------------------
+unknownAtRules
+
+tailwind
+----------------------------
+mkcert localhost
+
+------------------------------------
+
+
+required byte[]  PasswordHash ;
+byte[]    PasswordSalt ; 
+
+dotnet ef migrations add UserEntityUpdated
+
+dotnet ef database update
+
+---------------------------------------------
+BaseApiController
+
+AccountController
+
+("register")
+
+------------------------
+RegisterDTO
+
+
+-------------------------------------
+
+
+

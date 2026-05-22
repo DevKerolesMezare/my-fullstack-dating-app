@@ -5,4 +5,7 @@ public class AppUser
     public string Id {set;get;} = Guid.NewGuid().ToString();    
     public required string DisplayName{ set ;    get;}
     public required string Email{get;set;}
+
+    public required byte[] PasswordHash {set; get;}
+    public required byte[] PasswordSalt {set; get;}
 }
