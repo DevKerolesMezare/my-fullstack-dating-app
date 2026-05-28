@@ -1,16 +1,3 @@
+<app-nav />
 
-<div class="card bg-base-100 w-1/2 mx-auto p-10 mt-10 shadow-xl">
-  <h1 class="text-4xl text-red-500 text-center">{{ title }}</h1>
-
-  <ul class="list">
-    @for (mem of members(); track mem.id) {
-      <li class="list-row items-center">
-        <img src="/user.png" alt="user avatar" class="size-12 rounded-box">
-    <div>
-      {{mem.displayName}}
-    </div>
-      </li>
-    }
-  </ul>
-  <button class="btn btn-primary">click here</button>
-</div>
+<app-home />

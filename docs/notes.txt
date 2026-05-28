@@ -71,9 +71,34 @@ AccountController
 
 ------------------------
 RegisterDTO
-
-
 -------------------------------------
+launch.json
+--------------------------------
+new Folder\
+Interfaces
+
+ITokenService
+
+-------------------------------------------
+
+Angular
+     Folder\ 
+      layout
+      features
+      core 
+      shared
+
+--dry-run 
+      
+------------------------------------------
+ng g  s account-service
+
+------------------------------
+
+
+
+
+
 
 
 

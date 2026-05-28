@@ -51,13 +51,7 @@ public class AccountController(AppDbContext context, ITokenService tokenService)
             if(computedHush[i] != user.PasswordHash[i]) return Unauthorized("Invaild password");
         }
 
-        return new UserDTO
-        {
-            Id = user.Id,
-            DisplayName= user.DisplayName,
-            Email = user.Email,
-            Token = tokenService.CreateToken(user)
-        }; 
+     return user.ToDTO(tokenService);
     }
 
 
