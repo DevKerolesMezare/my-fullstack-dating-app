@@ -678,33 +678,31 @@ Total Time Study \[48min]
 
 
 
-
-
-
+day
 
 \-------------------------------------------------------------------
 
 Task :
 
-
-
-start:
-
-
-
-rest :
-
-start:
-
-
-
-description:
+start:             4:48 AM 6/11/2026
 
 
 
 
 
-end :
+description:       108 | 111      \[Net Time =  30min ]
+
+
+
+
+
+end :         5:55 AM 6/11/2026
+
+
+
+
+
+Total Time Study \[1h 7min]
 
 \------------------------------------------------------------------
 
@@ -712,29 +710,37 @@ end :
 
 
 
+day
+
 \-------------------------------------------------------------------
 
 Task :
 
-
-
-start:
-
-
-
-rest :
-
-start:
+start:             1:30 AM 6/12/2026
 
 
 
-description:
+rest :              2:05 AM 6/12/2026
+
+start:             3:00 AM 6/12/2026
+
+total rest: 55 + 10 = 1h 5min
+
+
+
+description:      112 | 120   \["End of section 10"  -  Net Time  =  57min ]
 
 
 
 
 
-end :
+end :                4:55  AM 6/12/2026
+
+
+
+
+
+Total Time Study \[2h  20min]
 
 \-------------------------------------------------------------------
 
