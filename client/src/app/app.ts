@@ -5,7 +5,7 @@ import { NotFound } from "../shared/errors/not-found/not-found";
 
 @Component({
   selector: 'app-root',
-  imports: [Nav, RouterOutlet, NotFound],
+  imports: [Nav, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })

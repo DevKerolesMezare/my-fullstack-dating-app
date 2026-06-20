@@ -926,7 +926,7 @@ day
 
 \-------------------------------------------------------------------
 
-Task :  
+Task :
 
 start:                 5:20 AM 6/17/2026
 
@@ -950,35 +950,37 @@ Total Time Study \[ 58 min]
 
 
 
+day
+
 \-------------------------------------------------------------------
 
 Task :
 
-start:
+start:                       5:10 AM 6/18/2026
 
 
 
-rest :
+rest :                       7:05 AM 6/18/2026
 
-start:
+start:                       7:20 AM 6/18/2026
 
-total rest:
-
-
-
-description:        |       \[Net Time =   ]
+total rest:       15 + 10 = 25 min
 
 
 
-
-
-end :
+description:    149    |  154     \[Net Time = 51min  ]
 
 
 
 
 
-Total Time Study \[ ]
+end :                       7:45 AM 6/18/2026
+
+
+
+
+
+Total Time Study \[2h 10min ]
 
 \------------------------------------------------------------------
 
@@ -986,35 +988,39 @@ Total Time Study \[ ]
 
 
 
+day
+
 \-------------------------------------------------------------------
 
 Task :
 
-start:
+start:                      5:04 AM 6/19/2026
 
 
 
-rest :
+rest :                      6:53 AM 6/19/2026
 
-start:
+start:                     7:43 AM 6/19/2026
 
-total rest:
-
-
-
-description:        |       \[Net Time =   ]
+total rest:             50  +  10  = 1h
 
 
 
 
 
-end :
+description:     155   |   161    \[Net Time =   51]
 
 
 
 
 
-Total Time Study \[ ]
+end :                 8:30 AM 6/19/2026
+
+
+
+
+
+Total Time Study \[ 2h 26min]
 
 \------------------------------------------------------------------
 
@@ -1022,17 +1028,17 @@ Total Time Study \[ ]
 
 
 
-
+day
 
 \-------------------------------------------------------------------
 
 Task :
 
-start:
+start:                              7:56 AM 6/20/2026
 
 
 
-rest :
+rest :                              9:15 AM 6/20/2026
 
 start:
 
@@ -1046,7 +1052,7 @@ description:        |       \[Net Time =   ]
 
 
 
-end :
+end :                          
 
 
 

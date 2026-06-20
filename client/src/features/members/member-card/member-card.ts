@@ -5,7 +5,7 @@ import { AgePipe } from '../../../core/pipes/age-pipe';
 
 @Component({
   selector: 'app-member-card',
-  imports: [MemberCard, RouterLink, AgePipe],
+  imports: [RouterLink, AgePipe],
   templateUrl: './member-card.html',
   styleUrl: './member-card.css',
 })

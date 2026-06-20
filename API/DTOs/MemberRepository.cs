@@ -1,5 +1,6 @@
 using API.Data;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,15 +20,31 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
             return await context.SaveChangesAsync() > 0;
         }
     
-        public async Task<IReadOnlyList<Member>> GetMembersAsync()
+        public async Task<PaginatedResult<Member>> GetMembersAsync(MemberParams memberParams)
         {
-         return await context.Members
-         .ToListAsync();
-        }
-    
-        public async Task<Member?> GetMemberByIdAsync(string id)
-        {
-            return await context.Members.FindAsync(id);
+            var query = context.Members.AsQueryable();
+
+            query = query.Where(x=>x.Id != memberParams.CurrentMemberId); 
+
+            if(memberParams.Gender != null)
+            {
+                query = query.Where(x=>x.Gender == memberParams.Gender); 
+            }
+
+            var minDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-memberParams.MaxAge - 1));
+            var maxDob = DateOnly.FromDateTime(DateTime.Today.AddYears(-memberParams.MinAge));
+
+            query = query.Where(x => x.DateOfBirth >= minDob && x.DateOfBirth <= maxDob);
+
+
+            query = memberParams.OrderBy switch
+            {
+                "created" => query.OrderByDescending(x => x.Created),
+                    _ => query.OrderByDescending(x => x.LastActive)
+            };
+
+            return await PaginationHelper.CreateAsync(query,
+             memberParams.PageNumber, memberParams.PageSize);
         }
     
         public async Task<IReadOnlyList<Photo>> GetMemberByPhotosAsync(string memberId)
@@ -45,4 +62,11 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
         .SingleOrDefaultAsync(x => x.Id == id);
     }
 
+public async Task<Member?> GetMemberByIdAsync(string id)
+{
+    return await context.Members
+        .Include(x => x.Photos)
+        .Include(x => x.User)
+        .SingleOrDefaultAsync(x => x.Id == id);
+}
 }
