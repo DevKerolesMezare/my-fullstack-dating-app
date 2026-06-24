@@ -4,9 +4,6 @@ namespace API.Extensions;
 
 public static class ClaimsPrincipalExtesions
 {
-    public static string GetMemberId(this ClaimsPrincipal user)
-    {
-        return user.FindFirstValue(ClaimTypes.NameIdentifier) 
+    public static string GetMemberId(this ClaimsPrincipal user) => user.FindFirstValue(ClaimTypes.NameIdentifier)
         ?? throw new Exception("Cannot get memberId form token");
-    }
 }

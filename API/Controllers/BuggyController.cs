@@ -7,29 +7,18 @@ namespace API.Controllers;
 public class BuggyController : ControllerBase
 {
     [HttpGet("auth")]
-    public IActionResult GetAuth()
-    {
-        return Unauthorized();
-    }
+    public IActionResult GetAuth() => Unauthorized();
 
     [HttpGet("not-found")]
-    public IActionResult GetNotFound()
-    {
-        return NotFound();
-    }
+    public IActionResult GetNotFound() => NotFound();
 
     [HttpGet("server-error")]
-    public IActionResult GetServerError()
-    {
-        throw new Exception("This is a server error");
-    }
+    public IActionResult GetServerError() => throw new Exception("This is a server error");
 
 
     [HttpGet("bad-request")]
-    public IActionResult GetBadRequest()
-    {
-        return BadRequest("This was not a good request");
-    }
+    public IActionResult GetBadRequest() => BadRequest("This was not a good request");
 
-    
+
+
 }

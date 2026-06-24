@@ -1122,12 +1122,12 @@ description:    178    |    181 \["End of section 14" -  Net Time =  21min]
 
 Challenge :  
 تطبيق
-	Pagination
+Pagination
 على قائمة الـ
-	Likes 
+Likes
 
-في 
-lists component 
+في
+lists component
 
 
 
@@ -1145,37 +1145,37 @@ Total Time Study \[1h 30min]
 
 
 
-
+day
 
 \-------------------------------------------------------------------
 
 Task :
 
-start:
+start:                        9:05 AM 6/23/2026
 
 
 
-rest :
+rest :                       10:00 AM 6/23/2026                      11:21 AM 6/23/2026
 
-start:
+start:                       10:20 AM 6/23/2026                      11:41 AM 6/23/2026
 
-total rest:
-
-
-
-description:        |       \[Net Time =   ]
+total rest: 40min
 
 
 
-
-
-end :
+description:    182    |   189    \[Net Time =  62min ]
 
 
 
 
 
-Total Time Study \[ ]
+end :                  12:27 PM 6/23/2026
+
+
+
+
+
+Total Time Study \[ 2h 42min]
 
 \------------------------------------------------------------------
 
@@ -1183,35 +1183,37 @@ Total Time Study \[ ]
 
 
 
+day
+
 \-------------------------------------------------------------------
 
 Task :
 
-start:
+start:                 6:51 AM 6/24/2026
 
 
 
-rest :
+rest :                7:51 AM 6/24/2026                       8:56 AM 6/24/2026                     9:40 AM 6/24/2026
 
-start:
+start:                8:13 AM 6/24/2026		         9:02 AM 6/24/2026                     10:07 AM 6/24/2026
 
-total rest:
-
-
-
-description:        |       \[Net Time =   ]
+total rest:   55 >> 1h
 
 
 
-
-
-end :
+description:     190   |   198   \["End of section 15" -  Net Time = 72min ]
 
 
 
 
 
-Total Time Study \[ ]
+end :               10:48 AM 6/24/2026
+
+
+
+
+
+Total Time Study \[3h] 🎉
 
 \------------------------------------------------------------------
 

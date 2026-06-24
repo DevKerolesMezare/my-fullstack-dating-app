@@ -63,8 +63,5 @@ public class AccountController(AppDbContext context, ITokenService tokenService)
     }
 
 
-    public async Task<bool> EmailExists(string email)
-    {
-        return await context.Users.AnyAsync(x => x.Email.ToLower() == email.ToLower());
-    }
+    public async Task<bool> EmailExists(string email) => await context.Users.AnyAsync(x => x.Email.ToLower() == email.ToLower());
 }

@@ -30,7 +30,7 @@
           "path": "src"
         },
         "@schematics/angular:pipe": {
-          "skipTests":  true,
+          "skipTests": true,
           "path": "src/core/pipes"
         }
       },

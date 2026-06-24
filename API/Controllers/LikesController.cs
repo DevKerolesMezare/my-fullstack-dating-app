@@ -38,10 +38,7 @@ public class LikesController(ILikesRepository likesRepository) : ControllerBase
     }
 
     [HttpGet("list")]
-    public async Task<ActionResult<IReadOnlyList<string>>> GetCurrentMemberlikeIds()
-    {
-        return Ok(await likesRepository.GetCurrentMemberLikeIds(User.GetMemberId()));
-    }
+    public async Task<ActionResult<IReadOnlyList<string>>> GetCurrentMemberlikeIds() => Ok(await likesRepository.GetCurrentMemberLikeIds(User.GetMemberId()));
 
     [HttpGet]
     public async Task<ActionResult<PaginatedResult<Member>>> GetMemberLikes([FromQuery] LikesParams likesParams)

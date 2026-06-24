@@ -7,28 +7,16 @@ namespace API.Data;
 
 public class LikesRepository(AppDbContext context) : ILikesRepository
 {
-    public void AddLike(MemberLike like)
-    {
-        context.Add(like);
-    }
+    public void AddLike(MemberLike like) => context.Add(like);
 
-    public void DeleteLike(MemberLike like)
-    {
-        context.Likes.Remove(like);
-    }
+    public void DeleteLike(MemberLike like) => context.Likes.Remove(like);
 
-    public async Task<IReadOnlyList<string>> GetCurrentMemberLikeIds(string memberId)
-    {
-        return await context.Likes
+    public async Task<IReadOnlyList<string>> GetCurrentMemberLikeIds(string memberId) => await context.Likes
         .Where(x => x.SourceMemberId == memberId)
         .Select(x => x.TargetMemberId)
         .ToListAsync();
-    }
 
-    public async Task<MemberLike?> GetMemberLike(string sourceMemberId, string targetmemberId)
-    {
-        return await context.Likes.FindAsync(sourceMemberId , targetmemberId);
-    }
+    public async Task<MemberLike?> GetMemberLike(string sourceMemberId, string targetmemberId) => await context.Likes.FindAsync(sourceMemberId, targetmemberId);
 
     public async Task<PaginatedResult<Member>> GetMemberLikes(LikesParams likesParams)
     {
@@ -62,9 +50,6 @@ public class LikesRepository(AppDbContext context) : ILikesRepository
          likesParams.PageNumber , likesParams.PageSize);
     }
 
-    public async Task<bool> SaveAllChanges()
-    {
-        return await context.SaveChangesAsync() > 0;
-    }
+    public async Task<bool> SaveAllChanges() => await context.SaveChangesAsync() > 0;
 
 }
