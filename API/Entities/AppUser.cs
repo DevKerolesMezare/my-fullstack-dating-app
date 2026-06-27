@@ -1,14 +1,14 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace API.Entities;
 
-public class AppUser
+public class AppUser  : IdentityUser
 {
-    public string Id {set;get;} = Guid.NewGuid().ToString();    
     public required string DisplayName{ set ;    get;}
-    public required string Email{get;set;}
     public string? ImageUrl {get;set;} 
-    public required byte[] PasswordHash {set; get;}
-    public required byte[] PasswordSalt {set; get;}
 
+    public string? RefreshToken { get; set; }
+    public DateTime? RefreshTokenExpiry { get; set; }
 
     // Navigation property
     public Member Member { get; set; } = null!;
