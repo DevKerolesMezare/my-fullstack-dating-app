@@ -13,4 +13,13 @@ public interface IMessageRepository
     Task<PaginatedResult<MessageDTO>> GetMessagesForMembers(MessageParams messageParams);
     Task<IReadOnlyList<MessageDTO>> GetMessageThread(string currentMemeberId , string recipientId);
     Task<bool> SaveAllAsync();
+
+    void AddGroup(Group group);
+    Task RemoveConnection(string connectionId);
+    Task<Connection?> GetConnection(string connectionId);
+    Task<Group?> GetMessageGroup(string groupName);
+    Task<Group?> GetGroupForConnection(string connectionId);
+
+
+    
 }
