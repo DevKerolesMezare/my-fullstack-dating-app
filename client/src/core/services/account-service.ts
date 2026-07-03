@@ -80,6 +80,7 @@ export class AccountService {
   }
 
   logout() {
+    this.http.post(this.baseUrl + 'account/logout', {}, { withCredentials: true }).subscribe();
     localStorage.removeItem('filters');
     this.likeService.clearLikeIds();
     this.currentUser.set(null);

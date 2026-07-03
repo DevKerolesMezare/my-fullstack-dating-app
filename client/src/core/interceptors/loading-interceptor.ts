@@ -35,6 +35,11 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
     invalidateCache('/messages');
   }
 
+  if(req.method.includes('POST') && req.url.includes('/account')) 
+  {
+    cach.clear();
+  }
+
   if (req.method === 'GET') {
     const cachedResponse = cach.get(cacheKey);
     if (cachedResponse) {

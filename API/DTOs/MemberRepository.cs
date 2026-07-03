@@ -12,8 +12,6 @@ public class MemberRepository(AppDbContext context) : IMemberRepository
 
     public void Update(Member member) => context.Entry(member).State = EntityState.Modified;
 
-    public async Task<bool> SaveAllAsync() => await context.SaveChangesAsync() > 0;
-
     public async Task<PaginatedResult<Member>> GetMembersAsync(MemberParams memberParams)
         {
             var query = context.Members.AsQueryable();

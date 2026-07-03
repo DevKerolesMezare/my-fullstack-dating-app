@@ -94,7 +94,4 @@ public class MessageRepository(AppDbContext context) : IMessageRepository
             .ExecuteDeleteAsync();
     }
 
-
-    public async Task<bool> SaveAllAsync() => await context.SaveChangesAsync() > 0;
-
 }
