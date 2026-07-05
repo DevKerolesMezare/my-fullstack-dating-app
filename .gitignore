@@ -486,3 +486,5 @@ API/appsettings.json
 API/dating.db*
 docs/notes.txt
 
+client/ssl/localhost-key.pem
+*.pem
