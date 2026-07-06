@@ -20,7 +20,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-   opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")); 
+   opt.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); 
 });
 
 builder.Services.AddCors();
@@ -91,9 +91,13 @@ app.UseCors(x=>x
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapControllers();
 app.MapHub<PresentHub>("hubs/presence");
 app.MapHub<MessageHub>("hubs/messages");
+app.MapFallbackToController("Index", "Fallback");
 
 
 using var scope = app.Services.CreateScope();
