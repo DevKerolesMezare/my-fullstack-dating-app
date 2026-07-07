@@ -4,7 +4,13 @@ import { BusyService } from '../services/busy-service';
 import { delay, finalize, identity, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-const cach = new Map<string, HttpEvent<unknown>>();
+type CacheEntry = {
+  response: HttpEvent<unknown>;
+  timestamp: number;
+};
+
+const cache = new Map<string, CacheEntry>();
+const CACHE_DURATION_MS = 5 * 60 * 1000;
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   const busyService = inject(BusyService);
@@ -18,10 +24,9 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   };
 
   const invalidateCache = (urlPattern: string) => {
-    for (const key of cach.keys()) {
+    for (const key of cache.keys()) {
       if (key.includes(urlPattern)) {
-        cach.delete(key);
-        console.log(`Cache invalidated for: ${key}`);
+        cache.delete(key);
       }
     }
   };
@@ -32,28 +37,31 @@ export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
     invalidateCache('/likes');
   }
 
-    if (req.method.includes('POST') && req.url.includes('/messages')) {
+  if (req.method.includes('POST') && req.url.includes('/messages')) {
     invalidateCache('/messages');
   }
 
-  if(req.method.includes('POST') && req.url.includes('/account')) 
-  {
-    cach.clear();
+  if (req.method.includes('POST') && req.url.includes('/account')) {
+    cache.clear();
   }
 
   if (req.method === 'GET') {
-    const cachedResponse = cach.get(cacheKey);
-    if (cachedResponse) {
-      return of(cachedResponse);
+    const cachedEntry = cache.get(cacheKey);
+    if (cachedEntry) {
+      const isExpired = (Date.now() - cachedEntry.timestamp) > CACHE_DURATION_MS;
+      if (!isExpired) {
+        return of(cachedEntry.response);
+      }
+      cache.delete(cacheKey);
     }
   }
 
   busyService.busy();
 
   return next(req).pipe(
-    (environment.production ? identity : delay(1000)),
+    environment.production ? identity : delay(1000),
     tap((resp) => {
-      cach.set(cacheKey, resp);
+      cache.set(cacheKey, { response: resp, timestamp: Date.now() });
     }),
     finalize(() => {
       busyService.idle();
