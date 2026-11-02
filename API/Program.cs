@@ -28,6 +28,7 @@ builder.Services.AddScoped<ITokenService , TokenService>();
 builder.Services.AddScoped<IPhotoService , PhotoService>();
 builder.Services.AddScoped<IUnitOfWork , UnitOfWork>();
 builder.Services.AddScoped<LogUserActivity>();
+builder.Services.AddScoped<IPhotoRepository, PhotoRepository>();
 builder.Services.Configure<CloudinaySetting>(builder.Configuration
    .GetSection("CloudinaySetting"));
 builder.Services.AddSignalR();
