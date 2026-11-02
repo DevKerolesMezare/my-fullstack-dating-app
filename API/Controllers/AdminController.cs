@@ -1,13 +1,16 @@
 using API.Entities;
 using API.Interfaces;
+using API.SignalR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-public class AdminController(UserManager<AppUser> userManager, IUnitOfWork uow, IPhotoService photoService) : BaseApiController
+public class AdminController(UserManager<AppUser> userManager, IUnitOfWork uow,
+    IPhotoService photoService, IHubContext<PresentHub> hubContext) : BaseApiController
 {
 
     [Authorize(Policy = "RequireAdminRole")]
@@ -81,15 +84,25 @@ public class AdminController(UserManager<AppUser> userManager, IUnitOfWork uow, 
     {
         var photo = await uow.PhotoRepository.GetPhotoById(photoId);
         if (photo == null) return BadRequest("Could not get photo from db");
+        var photoOwnerId = photo.MemberId;
         var member = await uow.MemberRepository.GetMemberForUpdate(photo.MemberId);
         if (member == null) return BadRequest("Could not get member");
         photo.IsApproved = true;
+        string? mainImageUrl = null;
         if (member.ImageUrl == null)
         {
             member.ImageUrl = photo.Url;
             member.User.ImageUrl = photo.Url;
+            mainImageUrl = photo.Url;
         }
-        await uow.Complete();
+
+        if (!await uow.Complete()) return BadRequest("Problem approving photo");
+
+        await hubContext.Clients.User(photoOwnerId).SendAsync("PhotoApproved", new
+        {
+            photoId,
+            mainImageUrl
+        });
         return Ok();
     }
 
@@ -109,7 +122,14 @@ public class AdminController(UserManager<AppUser> userManager, IUnitOfWork uow, 
 
         uow.PhotoRepository.RemovePhoto(photo);
 
-        if (await uow.Complete()) return Ok();
+        if (await uow.Complete())
+        {
+            await hubContext.Clients.User(photo.MemberId).SendAsync("PhotoRejected", new
+            {
+                photoId
+            });
+            return Ok();
+        }
 
         return BadRequest("Problem rejecting photo");
     }

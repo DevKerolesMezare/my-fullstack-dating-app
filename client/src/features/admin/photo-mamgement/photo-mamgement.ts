@@ -1,6 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { AdminService } from '../../../core/services/admin-service';
 import { Photo } from '../../../types/member';
+import {
+  PhotoAwaitingApprovalEvent,
+  PresenceService,
+} from '../../../core/services/presence-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-photo-mamgement',
@@ -8,11 +13,23 @@ import { Photo } from '../../../types/member';
   templateUrl: './photo-mamgement.html',
   styleUrl: './photo-mamgement.css',
 })
-export class PhotoMamgement {
-  photos = signal<Photo[]>([]);
+export class PhotoMamgement implements OnInit, OnDestroy {
+  photos = signal<(Photo | PhotoAwaitingApprovalEvent)[]>([]);
   private adminService = inject(AdminService);
+  private presenceService = inject(PresenceService);
+  private photoAwaitingApprovalSubscription = new Subscription();
 
   ngOnInit(): void {
+    this.photoAwaitingApprovalSubscription.add(
+      this.presenceService.photoAwaitingApproval$.subscribe((event) => {
+        this.photos.update((photos) => {
+          if (photos.some((photo) => photo.id === event.id)) return photos;
+
+          return [...photos, event];
+        });
+      }),
+    );
+
     this.getPhotosForApproval();
   }
 
@@ -38,5 +55,9 @@ export class PhotoMamgement {
           return photos.filter((x) => x.id !== photoId);
         }),
     });
+  }
+
+  ngOnDestroy(): void {
+    this.photoAwaitingApprovalSubscription.unsubscribe();
   }
 }

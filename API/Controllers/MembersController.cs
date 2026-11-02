@@ -5,15 +5,17 @@ using API.Entities;
 using API.Extensions;
 using API.Helpers;
 using API.Interfaces;
+using API.SignalR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
 [Authorize]
 public class MembersController(IUnitOfWork uow,
-IPhotoService photoService) : BaseApiController
+IPhotoService photoService, IHubContext<PresentHub> hubContext) : BaseApiController
 {
 
     [HttpGet]
@@ -37,7 +39,8 @@ IPhotoService photoService) : BaseApiController
     [HttpGet("{id}/photos")]
     public async Task<ActionResult<IReadOnlyList<Photo>>> GetMemberPhotos(string id)
     {
-        var photos = await uow.MemberRepository.GetMemberByPhotosAsync(id);
+        var photos = await uow.MemberRepository.GetPhotosForMemberAsync(
+            id, id == User.GetMemberId());
         if (photos == null) return NotFound();
 
         return Ok(photos);
@@ -118,7 +121,22 @@ IPhotoService photoService) : BaseApiController
             MemberId = User.GetMemberId()
         };
         member.Photos.Add(photo);
-        if (await uow.Complete()) return photo;
+        if (await uow.Complete())
+        {
+            var photoForApproval = new PhotoForApprovalDTO
+            {
+                Id = photo.Id,
+                Url = photo.Url,
+                UserId = member.Id,
+                Username = member.DisplayName,
+                IsApproved = false
+            };
+
+            await hubContext.Clients.Group("Moderators")
+                .SendAsync("PhotoAwaitingApproval", photoForApproval);
+            return photo;
+        }
+
         return BadRequest("Problem adding photo");
     }
 

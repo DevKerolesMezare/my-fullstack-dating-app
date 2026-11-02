@@ -18,6 +18,14 @@ export class AccountService {
   currentUser = signal<User | null>(null);
   private baseUrl = environment.apiUrl;
 
+  constructor() {
+    this.presenceService.photoApproved$.subscribe(({ mainImageUrl }) => {
+      if (mainImageUrl) {
+        this.currentUser.update((user) => (user ? { ...user, imageUrl: mainImageUrl } : user));
+      }
+    });
+  }
+
   register(creds: RegisterCreds) {
     return this.http
       .post<User>(this.baseUrl + 'account/register', creds, { withCredentials: true })

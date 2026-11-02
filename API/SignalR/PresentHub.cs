@@ -11,6 +11,11 @@ public class PresentHub(PresenceTracker presenceTracker): Hub
 {
     public override async Task OnConnectedAsync()
     {
+        if (Context.User?.IsInRole("Admin") == true || Context.User?.IsInRole("Moderator") == true)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, "Moderators");
+        }
+
         await presenceTracker.UserConnected(GetUserId(), Context.ConnectionId);
         await Clients.Others.SendAsync("UserOnline", GetUserId());
 

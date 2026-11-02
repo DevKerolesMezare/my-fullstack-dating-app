@@ -4,6 +4,24 @@ import { ToastService } from './toast-service';
 import { User } from '../../types/user';
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from '@microsoft/signalr';
 import { Message } from '../../types/messages';
+import { Subject } from 'rxjs';
+
+export type PhotoApprovedEvent = {
+  photoId: number;
+  mainImageUrl: string | null;
+};
+
+export type PhotoRejectedEvent = {
+  photoId: number;
+};
+
+export type PhotoAwaitingApprovalEvent = {
+  id: number;
+  url: string;
+  userId: string;
+  username: string;
+  isApproved: false;
+};
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +31,9 @@ export class PresenceService {
   private toast = inject(ToastService);
   hubConnection?: HubConnection;
   onlineUsers = signal<string[]>([]);
+  photoApproved$ = new Subject<PhotoApprovedEvent>();
+  photoRejected$ = new Subject<PhotoRejectedEvent>();
+  photoAwaitingApproval$ = new Subject<PhotoAwaitingApprovalEvent>();
 
   createHubConnection(user: User) {
     this.hubConnection = new HubConnectionBuilder()
@@ -35,6 +56,19 @@ export class PresenceService {
     this.hubConnection.on('GetOnlineUsers', (userIds) => {
       this.onlineUsers.set(userIds);
     });
+
+    this.hubConnection.on('PhotoApproved', (event: PhotoApprovedEvent) => {
+      this.photoApproved$.next(event);
+    });
+
+    this.hubConnection.on('PhotoRejected', (event: PhotoRejectedEvent) => {
+      this.photoRejected$.next(event);
+    });
+
+    this.hubConnection.on(
+      'PhotoAwaitingApproval',
+      (photo: PhotoAwaitingApprovalEvent) => this.photoAwaitingApproval$.next(photo),
+    );
 
     this.hubConnection.on('NewMessageReceived', (message: Message) => {
       this.toast.info(
